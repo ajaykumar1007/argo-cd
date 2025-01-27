@@ -1,0 +1,16 @@
+grafana:
+  enabled: true
+  adminPassword: "kgfdertyui"
+  persistence:
+    enabled: true
+    storageClassName: gp2
+    accessModes:
+      - ReadWriteOnce
+    size: "30Gi"
+  # finalizers:
+    # - kubernetes.io/pvc-protection
+prometheus:
+  prometheusSpec:
+    podMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    retention: 20d
