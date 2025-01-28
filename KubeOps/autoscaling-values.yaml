@@ -1,0 +1,13 @@
+autoscalingGroups:
+  - name: ${asg_name}
+    minSize: 1
+    maxSize: 10
+serviceMonitor:
+  enabled: true
+prometheusRule:
+  enabled: true
+  namespace: monitoring
+rbac:
+  serviceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn=${autoscaling_role_arn}
