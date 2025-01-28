@@ -1,0 +1,48 @@
+tolerations:
+  - key: "Deployment"
+    operator: "Equal"
+    value: "StatefullSet"
+    effect: "NoSchedule"
+tls:
+  enabled: false
+auth:
+  sasl:
+    enabled: false
+    users:
+      - name: admin
+        password: change-me
+        mechanism: SCRAM-SHA-512
+monitoring:
+  enabled: false
+  scrapeInterval: 30s
+storage:
+  persistentVolume:
+    enabled: true
+    size: 20Gi
+    storageClass: "gp2"
+external:
+  enabled: false
+  externalDns:
+    enabled: false
+statefulset:
+  replicas: 3
+  terminationGracePeriodSeconds: 100
+  updateStrategy:
+    type: "RollingUpdate"
+  budget:
+    maxUnavailable: 1
+  podAntiAffinity:
+    topologyKey: kubernetes.io/hostname
+    type: hard
+    weight: 100
+    custom:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: "Deployment"
+              operator: "In"
+              values:
+              - "StatefullSet"
+          topologyKey: "kubernetes.io/hostname"
