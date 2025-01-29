@@ -1,0 +1,37 @@
+controller:
+  allowSnippetAnnotations: true
+  compute-full-forwarded-for: true
+  enable-real-ip: true
+  use-forwarded-headers: true
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: "prometheus-operator"
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "10254"
+
+  autoscaling:
+    enabled: true 
+  resources:
+    requests:
+      cpu: "400m"
+      memory: "400Mi"
+  service:
+    annotations:
+      # AWS Network Load Balancer type
+      service.beta.kubernetes.io/aws-load-balancer-type: nlb
+      # (Optional) Connection idle timeout in seconds for the load balancer
+      service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: '60'
+      # (Optional) Enables or disables cross-zone load balancing
+      service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: 'true'
+      # (Optional) Specifies whether the load balancer is internal or internet-facing
+      service.beta.kubernetes.io/aws-load-balancer-internal: 'false'
+      # (Optional) ARN of the SSL certificate to use with HTTPS listeners
+      # service.beta.kubernetes.io/aws-load-balancer-ssl-cert:
+      # (Optional) Ports that require SSL termination
+      service.beta.kubernetes.io/aws-load-balancer-ssl-ports: https
+      # (Optional) Specifies the subnets for the load balancer
+      # service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-03adbd469a2bb90fd,subnet-01da64ceb3fe5f3a6
