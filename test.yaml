@@ -9,7 +9,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/example/repo.gita
+    repoURL: https://github.com/e
     targetRevision: HEAD
     path: app-directory
   destination:
