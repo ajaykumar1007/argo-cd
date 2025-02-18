@@ -1,0 +1,21 @@
+# test-application.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-app
+  namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.googlechat: vuelo-notifications
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/example/repo.git
+    targetRevision: HEAD
+    path: app-directory
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: test-namespace
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
