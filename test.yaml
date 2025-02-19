@@ -5,7 +5,7 @@ metadata:
   name: test-app
   namespace: argocd
   annotations:
-    notifications.argoproj.io/subscribe.on-sync-succeeded.googlechat: vuelo-notifications
+    notifications.argoproj.io/subscribe.on-sync-succeeded.googlechat: "vuelo-notifications"
 spec:
   project: default
   source:
